@@ -1,0 +1,14 @@
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 1 -r 2 -signal 20 -noise 0 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 1 -r 2 -signal 20 -noise 10 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 1 -r 2 -signal 20 -noise 20 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 1 -r 2 -signal 20 -noise 40 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 1 -r 2 -signal 20 -noise 80 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 1 -r 2 -signal 0 -noise 40 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 1 -r 2 -signal 10 -noise 40 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 1 -r 2 -signal 40 -noise 40 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 1 -r 2 -signal 60 -noise 40 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 2 -r 2 -signal 20 -noise 40 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 3 -r 2 -signal 20 -noise 40 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 4 -r 2 -signal 20 -noise 40 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 1 -r 3 -signal 20 -noise 40 --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll geo -a 2 -b 1 -r 4 -signal 20 -noise 40 --adaptive --oblivious -repeats 20 --solution

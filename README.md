@@ -14,44 +14,34 @@ The instructions below describe how to setup the code to run on a Mac and have b
 * Install [cython](http://cython.org). Then run the following in *bump_hunting/src* to generate file *bump_hunting/src/bingraph_fast.so*.
 
 ```
-my_mac:bump_hunting/src $ python setup_bingraph_fast.py build_ext --inplace
+bump_hunting/src $ python setup_bingraph_fast.py build_ext --inplace
 ```
-* [Optional] Use mongoimport to import the datasets into mongodb. The datasets are provided as files that contain one json document per line (see also next section).
-
-```
-my_mac:bump_hunting $ mongoimport -d bumphunting -c geo --file data/geo.json
-my_mac:bump_hunting $ mongoimport -d bumphunting -c grid --file data/grid.json
-my_mac:bump_hunting $ mongoimport -d bumphunting -c ba --file data/ba.json
-my_mac:bump_hunting $ mongoimport -d bumphunting -c pokec --file data/pokec.json
-my_mac:bump_hunting $ mongoimport -d bumphunting -c livejournal --file data/livejournal.json
-my_mac:bump_hunting $ mongoimport -d bumphunting -c patents --file data/patents.json
-```
-
-The lines above import each dataset in its own collection in database 'bumphunting'.
-
 
 ## Datasets
 
-In our paper, we evaluate the studied algorithms on six graphs, three synthetic and three real ones.
-The synthetic ones, 'grid', 'geo', and 'ba', were generated using [networkx]() and its [generators](http://networkx.github.io/documentation/networkx-1.9.1/reference/generators.html) for [two-dimensional grid](http://networkx.github.io/documentation/networkx-1.9.1/reference/generated/networkx.generators.classic.grid_2d_graph.html#networkx.generators.classic.grid_2d_graph), [geographical](http://networkx.github.io/documentation/networkx-1.9.1/reference/generated/networkx.generators.geometric.geographical_threshold_graph.html#networkx.generators.geometric.geographical_threshold_graph), and [barabasi-albert graph](http://networkx.github.io/documentation/networkx-1.9.1/reference/generated/networkx.generators.random_graphs.barabasi_albert_graph.html#networkx.generators.random_graphs.barabasi_albert_graph).
-The real ones, 'pokec', 'livejournal', and 'patents', were collected from [SNAP](http://snap.stanford.edu).
+In our paper, we evaluate the studied algorithms on synthetic and real graphs. Due to github's file size constraints, we cannot post the datasets here. However, we've made them available on the project's page on [bitbucket](https://bitbucket.org/mmathioudakis/bump_hunting/wiki/Home), under folder *bump_hunting/data*.
 
-In the interest of reproducibility of our results, we provide all of them in json format under folder *bump_hunting/data*.
+### Data file format
 Each line of each data file is a json document with three fields, '_id', 'neighbors', 'degree', that correspond to the id of a node in the respective graph, its list of neighbors (as a list of node-ids), and the degree of the node (the length of its neighbor list), respectively. For example, the following line is a json document that contains the id, neighbors, and degree of one node.
 
 ```
 { "_id" : 8, "neighbors" : [  1,  247089,  869832,  880477 ], "degree" : 4 }
 ```
 
+### Importing the datasets into mongodb
+You can import into mongodb the json file containing a graph (*'mygraph.json'*) with the following command.
+`bump_hunting $ mongoimport -d bumphunting -c dataset --file mygraph.json`
+The line above imports the dataset in its own collection in database 'bumphunting'.
+
 ## Running the code
 File *bump_hunting/src/experiments/experiments.sh* contains the commands we used to run the experiments in our paper. For example, in the command
 
 ```
-python src/experiments/measure.py -db bumphunting -coll grid -b 1 -r 4 -signal 20 -noise 0 --full --adaptive --oblivious -repeats 20 --solution
+python src/experiments/measure.py -db bumphunting -coll mygraph -b 1 -r 4 -signal 20 -noise 0 --full --adaptive --oblivious -repeats 20 --solution
 ```
 the arguments to *measure.py* have the following meaning:
 
-* **-db bumphunting -coll grid**: use the 'grid' dataset, that can be found in mongodb database 'bumphunting' and collection 'grid',
+* **-db bumphunting -coll grid**: use the dataset stored in mongodb database 'bumphunting' and collection 'mygraph',
 
 *  **-b 1 -r 4 -signal 20 -noise 0**: plant one sphere (-b 1) of query nodes, of radius 4 (-r 4), with 20 query nodes inside the sphere (-signal 20), and 0 query nodes outside the sphere (-noise 0),
 

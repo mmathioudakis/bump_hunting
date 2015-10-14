@@ -14,24 +14,19 @@ The instructions below describe how to setup the code to run on a Mac and have b
 * Install [cython](http://cython.org). Then run the following in *bump_hunting/src* to generate file *bump_hunting/src/bingraph_fast.so*.
 
 ```
-#!bash
-
 my_mac:bump_hunting/src $ python setup_bingraph_fast.py build_ext --inplace
-
 ```
 * [Optional] Use mongoimport to import the datasets into mongodb. The datasets are provided as files that contain one json document per line (see also next section).
 
 ```
-#!bash
-
 my_mac:bump_hunting $ mongoimport -d bumphunting -c geo --file data/geo.json
 my_mac:bump_hunting $ mongoimport -d bumphunting -c grid --file data/grid.json
 my_mac:bump_hunting $ mongoimport -d bumphunting -c ba --file data/ba.json
 my_mac:bump_hunting $ mongoimport -d bumphunting -c pokec --file data/pokec.json
 my_mac:bump_hunting $ mongoimport -d bumphunting -c livejournal --file data/livejournal.json
 my_mac:bump_hunting $ mongoimport -d bumphunting -c patents --file data/patents.json
-
 ```
+
 The lines above import each dataset in its own collection in database 'bumphunting'.
 
 
@@ -45,18 +40,13 @@ In the interest of reproducibility of our results, we provide all of them in jso
 Each line of each data file is a json document with three fields, '_id', 'neighbors', 'degree', that correspond to the id of a node in the respective graph, its list of neighbors (as a list of node-ids), and the degree of the node (the length of its neighbor list), respectively. For example, the following line is a json document that contains the id, neighbors, and degree of one node.
 
 ```
-#!text
-
 { "_id" : 8, "neighbors" : [  1,  247089,  869832,  880477 ], "degree" : 4 }
-
 ```
 
 ## Running the code
 File *bump_hunting/src/experiments/experiments.sh* contains the commands we used to run the experiments in our paper. For example, in the command
 
 ```
-#!bash
-
 python src/experiments/measure.py -db bumphunting -coll grid -b 1 -r 4 -signal 20 -noise 0 --full --adaptive --oblivious -repeats 20 --solution
 ```
 the arguments to *measure.py* have the following meaning:
